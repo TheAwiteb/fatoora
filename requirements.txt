@@ -1,0 +1,6 @@
+Pillow==8.4.0
+pydantic==1.8.2
+pyzbar==0.1.8
+qrcode==7.3.1
+typing-extensions==3.10.0.2
+uttlv==0.6.0
