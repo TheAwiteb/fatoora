@@ -47,6 +47,24 @@ $ python3 setup.py install
 
 ## Usage
 
+## variables
+
+**Here the features of the variables of the Fatoora class will be explained**
+
+| Name         | Feature | How will it be in the tag| How will it be when you call|
+|--------------|:-----:|:-----:|:-----:|
+| seller_name  | saved directly without processing |  No changes will be made to it  |  No changes will be made to it  |
+|  tax_number  |  receives the tax number as a text and a number as well, and save it as string |  number as string  |    number as string|
+| invoice_date | receives the date as timestamp number or string or float and saving it as float in string with 4 decimal digits| string of timestamp with 4 decimal digits |  datetime object  |
+| total_amount |  receives the tax number as a text and a number as well, It will be converted to a number with two decimal digits |  It is of type str and has two decimal digits  |    It is of type str and has two decimal digits|
+| tax_amount   |  same total_amount |  same total_amount  |  same total_amount|
+
+
+<!-- | name here | feature here| -->
+
+
+<br>
+
 ### Generate Base64
 
 ```python
@@ -155,6 +173,12 @@ print(Fatoora.base2dict(fatoora_obj.base64))
 # {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '100.00', 'tax_amount': '15.00'}
 
 ```
+
+## Discussions
+Question, feature request, discuss about fatoora [here](https://github.com/TheAwiteb/fatoora/discussions)
+
+## Issues
+You can report a problem here
 
 ## Security
 
