@@ -1,4 +1,5 @@
 from fatoora import Fatoora
+from json import loads
 
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
@@ -39,6 +40,17 @@ def test_tax_amount():
 
 def test_dict():
     assert fatoora_obj.dict() == fatoora_details
+
+
+def test_json():
+    json = fatoora_obj.json()
+    json_dict = loads(json)
+
+    json_dict.get("seller_name") == fatoora_details.get("seller_name")
+    json_dict.get("tax_number") == fatoora_details.get("tax_number")
+    json_dict.get("invoice_date") == fatoora_details.get("invoice_date")
+    json_dict.get("total_amount") == fatoora_details.get("total_amount")
+    json_dict.get("tax_amount") == fatoora_details.get("tax_amount")
 
 
 def test_qrcode():
