@@ -4,7 +4,7 @@ from json import loads
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,  # or "1234567891"
-    invoice_date="2021-07-12T14:25:09+00:00",  # ISO8601 @see https://en.wikipedia.org/wiki/ISO_8601
+    invoice_date=1635872693.3186214,  # timestamp
     total_amount=100,  # or 100.0, 100.00, "100.0", "100.00"
     tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
 )
@@ -12,7 +12,7 @@ fatoora_obj = Fatoora(
 fatoora_details = {
     "seller_name": "Awiteb",
     "tax_number": "1234567891",
-    "invoice_date": "2021-07-12T14:25:09+00:00",
+    "invoice_date": "1635872693.3186",
     "total_amount": "100.00",
     "tax_amount": "15.00",
 }
@@ -27,7 +27,7 @@ def test_tax_number():
 
 
 def test_invoice_date():
-    assert fatoora_obj.invoice_date.isoformat() == fatoora_details.get("invoice_date")
+    assert fatoora_obj.tags[3] == fatoora_details.get("invoice_date")
 
 
 def test_total_amount():

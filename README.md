@@ -55,13 +55,13 @@ from fatoora import Fatoora
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, # or "1234567891"
-    invoice_date="2021-07-12T14:25:09+00:00", # ISO8601 @see https://en.wikipedia.org/wiki/ISO_8601
+    invoice_date=1635872693.3186214, # Timestamp
     total_amount=100, # or 100.0, 100.00, "100.0", "100.00"
     tax_amount=15, # or 15.0, 15.00, "15.0", "15.00"
 )
 
 print(fatoora_obj.base64)
-# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDFDIwMjEtMDctMTJUMTQ6MjU6MDlaBAYxMDAuMDAFBTE1LjAw
+# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDDzE2MzU4NzI2OTMuMzE4NgQGMTAwLjAwBQUxNS4wMA==
 ```
 
 ### Render A QR Code Image
@@ -75,7 +75,7 @@ from fatoora import Fatoora
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,
-    invoice_date="2021-07-12T14:25:09+00:00", 
+    invoice_date=1635872693.3186214,
     total_amount=100,
     tax_amount=15,
 )
@@ -91,13 +91,13 @@ from fatoora import Fatoora
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
-    invoice_date="2021-07-12T14:25:09+00:00", 
+    invoice_date=1635872693.3186214,
     total_amount=100, 
     tax_amount=15, 
 )
 
 print(fatoora_obj.hash)
-# 7074ff5ad3b05534744037778ad1542e3c8057acd8308f50b95c7834f4955ed0
+# 0863de708b8bfb02541e3662c327f7a6a22173b635690960ad5a1ba506096522
 ```
 
 ### Read qr code
@@ -108,7 +108,7 @@ from fatoora import Fatoora
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
-    invoice_date="2021-07-12T14:25:09+00:00", 
+    invoice_date=1635872693.3186214,
     total_amount=100, 
     tax_amount=15, 
 )
@@ -116,10 +116,10 @@ fatoora_obj = Fatoora(
 fatoora_obj.qrcode("qr_code.png")
 
 print(Fatoora.read_qrcode("qr_code.png", dct=True))
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-07-12T14:25:09+00:00', 'total_amount': '100.00', 'tax_amount': '15.00'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '100.00', 'tax_amount': '15.00'}
 
 print(Fatoora.read_qrcode("qr_code.png", dct=False))
-# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDFDIwMjEtMDctMTJUMTQ6MjU6MDlaBAYxMDAuMDAFBTE1LjAw
+# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDDzE2MzU4NzI2OTMuMzE4NgQGMTAwLjAwBQUxNS4wMA==
 
 ```
 
@@ -129,7 +129,7 @@ print(Fatoora.read_qrcode("qr_code.png", dct=False))
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
-    invoice_date="2021-07-12T14:25:09+00:00", 
+    invoice_date=1635872693.3186214,
     total_amount=100, 
     tax_amount=15, 
 )
@@ -138,21 +138,21 @@ print(fatoora_obj.invoice_date.year)
 # 2021
 
 print(fatoora_obj.invoice_date.isoformat())
-# 2021-07-12T14:25:09+00:00
+# 2021-11-02T20:04:53.318600
 
 print(fatoora_obj.invoice_date.timestamp())
-#1626099909.0
+# 1635872693.3186
 
 print(fatoora_obj.json())
-# "{"seller_name": "Awiteb", "tax_number": "1234567891", "invoice_date": "2021-07-12T14:25:09+00:00", "total_amount": "100.00", "tax_amount": "15.00"}"
+# '{"seller_name": "Awiteb", "tax_number": "1234567891", "invoice_date": "1635872693.3186", "total_amount": "100.00", "tax_amount": "15.00"}'
 
 print(fatoora_obj.dict())
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-07-12T14:25:09+00:00', 'total_amount': '100.00', 'tax_amount': '15.00'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '100.00', 'tax_amount': '15.00'}
 
 # Use class to get fatoora details by base64
 
 print(Fatoora.base2dict(fatoora_obj.base64))
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-07-12T14:25:09+00:00', 'total_amount': '100.00', 'tax_amount': '15.00'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '100.00', 'tax_amount': '15.00'}
 
 ```
 

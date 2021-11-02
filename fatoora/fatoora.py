@@ -15,6 +15,8 @@ from pyzbar.pyzbar import decode
 from pydantic import validate_arguments
 from datetime import datetime
 
+__all__ = ("Fatoora",)
+
 
 class Fatoora:
     def __init__(
@@ -100,12 +102,12 @@ class Fatoora:
 
     @property
     def invoice_date(self) -> datetime:
-        return datetime.strptime(self.tags[3], "%Y-%m-%dT%H:%M:%S%z")
+        return datetime.fromtimestamp(float(self.tags[3]))
 
     @invoice_date.setter
     @validate_arguments
     def invoice_date(self, new_value: str) -> None:
-        self.tags[0x03] = new_value
+        self.tags[0x03] = "{:.4f}".format(float(new_value))
 
     @property
     def total_amount(self) -> str:
