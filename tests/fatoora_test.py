@@ -1,5 +1,8 @@
 from fatoora import Fatoora
 from json import loads
+import os
+
+qrcode_filename = "qr_code.png"
 
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
@@ -54,12 +57,13 @@ def test_json():
 
 
 def test_qrcode():
-    fatoora_obj.qrcode("qr_code.png")
+    fatoora_obj.qrcode(qrcode_filename)
+    assert os.path.lexists(qrcode_filename)
 
 
 def test_read_qrcode():
-    dct = Fatoora.read_qrcode("qr_code.png", dct=True)
-    base = Fatoora.read_qrcode("qr_code.png", dct=False)
+    dct = Fatoora.read_qrcode(qrcode_filename, dct=True)
+    base = Fatoora.read_qrcode(qrcode_filename, dct=False)
     assert dct == fatoora_details
     assert base == fatoora_obj.base64
 
