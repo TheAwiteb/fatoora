@@ -1,0 +1,9 @@
+blank_issues_enabled: true
+contact_links:
+- name: Question
+  url: 'https://github.com/TheAwiteb/fatoora/discussions/new?category=question'
+  about: Ask a question about fatoora Library in the discussions section
+
+- name: Feature Request
+  url: 'https://github.com/TheAwiteb/fatoora/discussions/new?category=feature-request'
+  about: If you think that the fatoora library needs a new feature, you can tell us about it in the discussions section
