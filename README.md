@@ -178,7 +178,7 @@ print(Fatoora.base2dict(fatoora_obj.base64))
 Question, feature request, discuss about fatoora [here](https://github.com/TheAwiteb/fatoora/discussions)
 
 ## Issues
-You can report a problem here
+You can report a bug [here](https://github.com/TheAwiteb/fatoora/issues)
 
 ## Security
 
