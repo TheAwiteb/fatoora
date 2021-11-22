@@ -13,6 +13,7 @@ from typing import Union, Optional
 from PIL import Image
 from pyzbar.pyzbar import decode
 from pydantic import validate_arguments
+import validators
 from datetime import datetime
 
 __all__ = ("Fatoora",)
@@ -22,10 +23,11 @@ class Fatoora:
     def __init__(
         self,
         seller_name: str,
-        tax_number: float,
+        tax_number: int,
         invoice_date: float,
         total_amount: float,
         tax_amount: float,
+        qrcode_url: Optional[str] = None,
         tags: TLV = TLV(),
     ):
         self.tags = tags
@@ -34,6 +36,7 @@ class Fatoora:
         self.invoice_date = invoice_date
         self.total_amount = total_amount
         self.tax_amount = tax_amount
+        self.qrcode_url = qrcode_url
 
     @classmethod
     def base2dict(cls, base: str) -> dict:
@@ -61,21 +64,20 @@ class Fatoora:
         return dict(zip(keys, values))
 
     @classmethod
-    def read_qrcode(cls, filename: str, dct: bool = True) -> Optional[Union[str, dict]]:
+    def read_qrcode(
+        cls, filename: str, dct: bool = False
+    ) -> Optional[Union[str, dict]]:
         """read content of qr code
 
         Args:
             filename (str): qr code path
             dct (bool, optional): True -> return dict of content
-                                False -> return base64 of content. Defaults to True.
+                                False -> return base64 of content or url. Defaults to False.
 
         Returns:
             Optional[Union[str, dict]]: content of qr code
         """
-        try:
-            data = decode(Image.open(filename))[0].data.decode()
-        except Exception:
-            return None
+        data = decode(Image.open(filename))[0].data.decode()
 
         if dct:
             return cls.base2dict(data)
@@ -128,6 +130,18 @@ class Fatoora:
         self.tags[0x05] = "{:.2f}".format(new_value)
 
     @property
+    def qrcode_url(self) -> Optional[str]:
+        return self._qrcode_url
+
+    @qrcode_url.setter
+    @validate_arguments
+    def qrcode_url(self, new_value: Optional[str]) -> None:
+        if not new_value or validators.url(new_value):
+            self._qrcode_url = new_value
+        else:
+            raise ValueError(f"Invalid url '{new_value}'")
+
+    @property
     def base64(self) -> str:
         """Return base64 of fatoora
 
@@ -145,7 +159,7 @@ class Fatoora:
         Args:
             filename (str): The path you want to put the qr code in
         """
-        qr_code = qrcode.make(self.base64)
+        qr_code = qrcode.make(self.qrcode_url or self.base64)
         qr_code.save(filename)
 
     @property
