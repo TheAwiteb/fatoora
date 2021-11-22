@@ -29,8 +29,6 @@ jobs:
         sudo apt-get install zbar-tools  
         python3 -m pip install --upgrade pip
         python3 -m pip install -r requirements.txt
-        python3 -m pip install pytest
     - name: Test with pytest
       run: |
-        export PYTHONPATH=. 
-        pytest -v
+        python3 setup.py test
