@@ -22,6 +22,13 @@ setup(
     packages=find_packages(),
     license="MIT",
     keywords=KEYWORD,
+    test_suite="tests",
+    setup_requires=[
+        "pytest-runner",
+    ],
+    tests_require=[
+        "pytest",
+    ],
     classifiers=[
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
