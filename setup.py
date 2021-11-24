@@ -1,8 +1,12 @@
 from setuptools import setup, find_packages
+import re
 
 KEYWORD = ["fatoora", "Fatoora", "ZATCA", "QR-Code"]
 
-version = "1.1.0"
+with open("fatoora/version.py", "r", encoding="utf-8") as f:
+    version = re.search(
+        r'^version\s*=\s*"(.*)".*$', f.read(), flags=re.MULTILINE
+    ).group(1)
 
 with open("README.md", "r", encoding="utf-8") as readme_file:
     long_description = readme_file.read()

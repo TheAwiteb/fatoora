@@ -19,7 +19,7 @@ fatoora_obj_with_url = Fatoora(
     invoice_date=1635872693.3186214,  # timestamp
     total_amount=100,  # or 100.0, 100.00, "100.0", "100.00"
     tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
-    qrcode_url="https://example.com"
+    qrcode_url="https://example.com",
 )
 
 fatoora_details = {
@@ -85,9 +85,9 @@ def test_qrcode():
 def test_read_qrcode():
     dct = Fatoora.read_qrcode(qrcode_filename, dct=True)
     base = Fatoora.read_qrcode(qrcode_filename, dct=False)
-    
+
     url = Fatoora.read_qrcode(qrcode_filename_with_url, dct=False)
-    
+
     assert url == fatoora_obj_with_url.qrcode_url
     assert base == fatoora_obj_with_url.base64
 
