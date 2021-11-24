@@ -108,7 +108,7 @@ class Fatoora:
 
     @invoice_date.setter
     @validate_arguments
-    def invoice_date(self, new_value: str) -> None:
+    def invoice_date(self, new_value: float) -> None:
         self.tags[0x03] = "{:.4f}".format(float(new_value))
 
     @property
