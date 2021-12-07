@@ -93,8 +93,8 @@ $ python3 setup.py install
 |--------------|:-----:|:-----:|:-----:|
 | seller_name  | saved directly without processing |  No changes will be made to it  |  No changes will be made to it  |
 |  tax_number  |  receives the tax number as a text and a number as well, and save it as string |  number as string  |    number as string|
-| invoice_date | receives the date as timestamp number or string or float and saving it as float in string with 4 decimal digits| string of timestamp with 4 decimal digits |  datetime object  |
-| total_amount |  receives the tax number as a text and a number as well, It will be converted to a number with two decimal digits |  It is of type str and has two decimal digits  |    It is of type str and has two decimal digits|
+| invoice_date | receives the date as timestamp or datetime object, or string ISO 8601 Zulu format| string of date as ISO 8601 Zulu format |  datetime object  |
+| total_amount |  receives the tax number as a text and a number as well |  It is of type str  |    It is of type float|
 | tax_amount   |  same total_amount |  same total_amount  |  same total_amount|
 
 
@@ -111,8 +111,8 @@ from fatoora import Fatoora
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, # or "1234567891"
-    invoice_date=1635872693.3186214, # Timestamp
-    total_amount=100, # or 100.0, 100.00, "100.0", "100.00"
+    invoice_date=1635872693.3186214, # timestamp or datetime object, or string ISO 8601 Zulu format
+    total_amount=115, # or 115.0, 115.00, "115.0", "115.00"
     tax_amount=15, # or 15.0, 15.00, "15.0", "15.00"
 )
 
@@ -133,7 +133,7 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,
     invoice_date=1635872693.3186214,
-    total_amount=100,
+    total_amount=115,
     tax_amount=15,
 )
 
@@ -149,7 +149,7 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,
     invoice_date=1635872693.3186214,
-    total_amount=100,
+    total_amount=115,
     tax_amount=15,
     qrcode_url="https://example.com"
 )
@@ -166,7 +166,7 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
     invoice_date=1635872693.3186214,
-    total_amount=100, 
+    total_amount=115, 
     tax_amount=15, 
 )
 
@@ -183,14 +183,14 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
     invoice_date=1635872693.3186214,
-    total_amount=100, 
+    total_amount=115, 
     tax_amount=15, 
 )
 
 fatoora_obj.qrcode("qr_code.png")
 
 print(Fatoora.read_qrcode("qr_code.png", dct=True))
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '100.00', 'tax_amount': '15.00'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '115.00', 'tax_amount': '15.00'}
 
 print(Fatoora.read_qrcode("qr_code.png", dct=False))
 # AQZBd2l0ZWICCjEyMzQ1Njc4OTEDDzE2MzU4NzI2OTMuMzE4NgQGMTAwLjAwBQUxNS4wMA==
@@ -204,7 +204,7 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
     invoice_date=1635872693.3186214,
-    total_amount=100, 
+    total_amount=115, 
     tax_amount=15, 
 )
 
@@ -218,15 +218,15 @@ print(fatoora_obj.invoice_date.timestamp())
 # 1635872693.3186
 
 print(fatoora_obj.json())
-# '{"seller_name": "Awiteb", "tax_number": "1234567891", "invoice_date": "1635872693.3186", "total_amount": "100.00", "tax_amount": "15.00"}'
+# '{"seller_name": "Awiteb", "tax_number": "1234567891", "invoice_date": "1635872693.3186", "total_amount": "115.00", "tax_amount": "15.00"}'
 
 print(fatoora_obj.dict())
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '100.00', 'tax_amount': '15.00'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '115.00', 'tax_amount': '15.00'}
 
 # Use class to get fatoora details by base64
 
 print(Fatoora.base2dict(fatoora_obj.base64))
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '100.00', 'tax_amount': '15.00'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '1635872693.3186', 'total_amount': '115.00', 'tax_amount': '15.00'}
 
 ```
 

@@ -16,7 +16,26 @@ from pydantic import validate_arguments
 import validators
 from datetime import datetime
 
-__all__ = ("Fatoora",)
+__all__ = ("Fatoora","iso8601_zulu_format", "is_valid_iso8601_zulu_format")
+
+iso8601_zulu_format = "%Y-%m-%dT%H:%M:%SZ"
+
+
+def is_valid_iso8601_zulu_format(string_date: str) -> bool:
+    """Returns True if the string valid ISO 8601 Zulu format
+
+    Args:
+        string_date (str): The date.
+
+    Returns:
+        bool: is valid valid ISO 8601 Zulu or not.
+    """
+    try:
+        datetime.strptime(string_date, iso8601_zulu_format)
+    except Exception:
+        return False
+    else:
+        return True
 
 
 class Fatoora:
@@ -104,30 +123,46 @@ class Fatoora:
 
     @property
     def invoice_date(self) -> datetime:
-        return datetime.fromtimestamp(float(self.tags[3]))
+        return datetime.strptime(self.tags[3], iso8601_zulu_format)
 
     @invoice_date.setter
     @validate_arguments
-    def invoice_date(self, new_value: float) -> None:
-        self.tags[0x03] = "{:.4f}".format(float(new_value))
+    def invoice_date(self, date: Union[datetime, float, str]) -> None:
+        """The ability to enter the invoice date as timestamp or datetime object, or string ISO 8601 Zulu format
+            and save it as ISO 8601 Zulu format
+
+        Args:
+            date (Union[datetime, float, str]): invoice date
+        """
+        if type(date) is float:
+            date = datetime.fromtimestamp(date)
+        elif type(date) is str:
+            if is_valid_iso8601_zulu_format(date):
+                date = datetime.strptime(date, iso8601_zulu_format)
+            else:
+                raise ValueError(f"Invalid date format: {date} should be iso8601 format or timestamp or datetime object")
+        else:
+            # is datetime object
+            pass
+        self.tags[0x03] = date.strftime(iso8601_zulu_format)
 
     @property
     def total_amount(self) -> str:
-        return self.tags[4]
+        return float(self.tags[4])
 
     @total_amount.setter
     @validate_arguments
     def total_amount(self, new_value: float) -> None:
-        self.tags[0x04] = "{:.2f}".format(new_value)
+        self.tags[0x04] = str(new_value)
 
     @property
     def tax_amount(self) -> str:
-        return self.tags[5]
+        return float(self.tags[5])
 
     @tax_amount.setter
     @validate_arguments
     def tax_amount(self, new_value: float) -> None:
-        self.tags[0x05] = "{:.2f}".format(new_value)
+        self.tags[0x05] = str(new_value)
 
     @property
     def qrcode_url(self) -> Optional[str]:
