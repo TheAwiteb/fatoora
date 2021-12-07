@@ -23,8 +23,8 @@ class Fatoora:
     def __init__(
         self,
         seller_name: str,
-        tax_number: int,
-        invoice_date: float,
+        tax_number: str,
+        invoice_date: str,
         total_amount: float,
         tax_amount: float,
         qrcode_url: Optional[str] = None,
@@ -99,17 +99,17 @@ class Fatoora:
 
     @tax_number.setter
     @validate_arguments
-    def tax_number(self, new_value: int) -> None:
-        self.tags[0x02] = str(new_value)
+    def tax_number(self, new_value: str) -> None:
+        self.tags[0x02] = new_value
 
     @property
-    def invoice_date(self) -> datetime:
-        return datetime.fromtimestamp(float(self.tags[3]))
+    def invoice_date(self) -> str:
+        return self.tags[3]
 
     @invoice_date.setter
     @validate_arguments
-    def invoice_date(self, new_value: float) -> None:
-        self.tags[0x03] = "{:.4f}".format(float(new_value))
+    def invoice_date(self, new_value: str) -> None:
+        self.tags[0x03] = new_value
 
     @property
     def total_amount(self) -> str:
