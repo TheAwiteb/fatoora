@@ -16,7 +16,7 @@ from pydantic import validate_arguments
 import validators
 from datetime import datetime
 
-__all__ = ("Fatoora","iso8601_zulu_format", "is_valid_iso8601_zulu_format")
+__all__ = ("Fatoora", "iso8601_zulu_format", "is_valid_iso8601_zulu_format")
 
 iso8601_zulu_format = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -140,7 +140,9 @@ class Fatoora:
             if is_valid_iso8601_zulu_format(date):
                 date = datetime.strptime(date, iso8601_zulu_format)
             else:
-                raise ValueError(f"Invalid date format: {date} should be iso8601 format or timestamp or datetime object")
+                raise ValueError(
+                    f"Invalid date format: {date} should be iso8601 format or timestamp or datetime object"
+                )
         else:
             # is datetime object
             pass
