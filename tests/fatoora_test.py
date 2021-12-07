@@ -1,22 +1,22 @@
 from fatoora import Fatoora
 from json import loads
 import os
-
+from datetime import datetime
 qrcode_filename = "qr_code.png"
 qrcode_filename_with_url = "qr_code_url.png"
 
 fatoora_obj = Fatoora(
     seller_name="Awiteb",
-    tax_number=1234567891,  # or "1234567891"
-    invoice_date=1635872693.3186214,  # timestamp
+    tax_number="1234567891",  # or "1234567891"
+    invoice_date=datetime.today().isoformat(),  # timestamp
     total_amount=100,  # or 100.0, 100.00, "100.0", "100.00"
     tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
 )
 
 fatoora_obj_with_url = Fatoora(
     seller_name="Awiteb",
-    tax_number=1234567891,  # or "1234567891"
-    invoice_date=1635872693.3186214,  # timestamp
+    tax_number="1234567891",  # or "1234567891"
+    invoice_date=datetime.today().isoformat(),  # isoformat datetime
     total_amount=100,  # or 100.0, 100.00, "100.0", "100.00"
     tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
     qrcode_url="https://example.com",
@@ -25,7 +25,7 @@ fatoora_obj_with_url = Fatoora(
 fatoora_details = {
     "seller_name": "Awiteb",
     "tax_number": "1234567891",
-    "invoice_date": "1635872693.3186",
+    "invoice_date": "2021-12-07T13:53:03.944684",
     "total_amount": "100.00",
     "tax_amount": "15.00",
 }
