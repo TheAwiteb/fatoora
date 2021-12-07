@@ -9,7 +9,7 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,  # or "1234567891"
     invoice_date=1635872693.3186214,  # timestamp
-    total_amount=100,  # or 100.0, 100.00, "100.0", "100.00"
+    total_amount=115,  # or 115.0, 115.00, "115.0", "115.00"
     tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
 )
 
@@ -17,7 +17,7 @@ fatoora_obj_with_url = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,  # or "1234567891"
     invoice_date=1635872693.3186214,  # timestamp
-    total_amount=100,  # or 100.0, 100.00, "100.0", "100.00"
+    total_amount=115,  # or 115.0, 115.00, "115.0", "115.00"
     tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
     qrcode_url="https://example.com",
 )
@@ -25,9 +25,9 @@ fatoora_obj_with_url = Fatoora(
 fatoora_details = {
     "seller_name": "Awiteb",
     "tax_number": "1234567891",
-    "invoice_date": "1635872693.3186",
-    "total_amount": "100.00",
-    "tax_amount": "15.00",
+    "invoice_date": "2021-11-02T17:04:53Z",
+    "total_amount": "115.0",
+    "tax_amount": "15.0",
 }
 
 
@@ -48,12 +48,12 @@ def test_invoice_date():
 
 def test_total_amount():
     for obj in [fatoora_obj, fatoora_obj_with_url]:
-        assert obj.total_amount == fatoora_details.get("total_amount")
+        assert obj.total_amount == float(fatoora_details.get("total_amount"))
 
 
 def test_tax_amount():
     for obj in [fatoora_obj, fatoora_obj_with_url]:
-        assert obj.tax_amount == fatoora_details.get("tax_amount")
+        assert obj.tax_amount == float(fatoora_details.get("tax_amount"))
 
 
 def test_dict():
