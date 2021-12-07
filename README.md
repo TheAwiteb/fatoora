@@ -140,6 +140,11 @@ fatoora_obj = Fatoora(
 
 fatoora_obj.qrcode("qr_code.png")
 ```
+<div align="center">
+
+![qr_code.png](https://i.suar.me/gNyBw/t)
+
+</div>
 
 #### The content is the invoice url
 
