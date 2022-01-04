@@ -10,7 +10,7 @@ fatoora_obj = Fatoora(
     tax_number=1234567891,  # or "1234567891"
     invoice_date=1635872693.3186214,  # timestamp
     total_amount=115,  # or 115.0, 115.00, "115.0", "115.00"
-    tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
+    tax_amount=17.25,  # or 17.0, 17.00, "17.0", "17.00"
 )
 
 fatoora_obj_with_url = Fatoora(
@@ -18,7 +18,7 @@ fatoora_obj_with_url = Fatoora(
     tax_number=1234567891,  # or "1234567891"
     invoice_date=1635872693.3186214,  # timestamp
     total_amount=115,  # or 115.0, 115.00, "115.0", "115.00"
-    tax_amount=15,  # or 15.0, 15.00, "15.0", "15.00"
+    tax_amount=17.25,  # or 17.0, 17.00, "17.0", "17.00"
     qrcode_url="https://example.com",
 )
 
@@ -27,7 +27,7 @@ fatoora_details = {
     "tax_number": "1234567891",
     "invoice_date": "2021-11-02T17:04:53Z",
     "total_amount": "115.0",
-    "tax_amount": "15.0",
+    "tax_amount": "17.25",
 }
 
 
