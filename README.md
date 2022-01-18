@@ -1,6 +1,7 @@
 <div align="center">
+  <img src="https://zatca.gov.sa/ar/E-Invoicing/PublishingImages/header_logo.svg">
   <h1>ZATCA (Fatoora) QR-Code Implementation</h1>
-  <p>An unofficial package help developers to implement ZATCA (Fatoora) QR code easily which required for e-invoicing</p>
+  <p>An <strong>unofficial package</strong> help developers to implement ZATCA (Fatoora) QR code easily which required for e-invoicing</p>
   <a href="https://pypi.org/project/fatoora/">
     <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/fatoora?color=9cf">
   </a>
@@ -90,16 +91,25 @@ $ python3 setup.py install
 
 **Here the features of the variables of the Fatoora class will be explained**
 
+- Seller’s name.
+- Seller’ tax number, which is the VAT registration number.
+- Invoice date, which is the timestamp of the electronic invoice.
+- Invoice total amount, which is the electronic invoice total **with VAT**.
+- Tax amount, which is the VAT total.
+
+
 | Name         | Feature | How will it be in the tag| How will it be when you call|
 |--------------|:-----:|:-----:|:-----:|
 | seller_name  | saved directly without processing |  No changes will be made to it  |  No changes will be made to it  |
 |  tax_number  |  receives the tax number as a text and a number as well, and save it as string |  number as string  |    number as string|
 | invoice_date | receives the date as timestamp or datetime object, or string ISO 8601 Zulu format| string of date as ISO 8601 Zulu format |  datetime object  |
-| total_amount |  receives the tax number as a text and a number as well |  It is of type str  |    It is of type float|
-| tax_amount   |  same total_amount |  same total_amount  |  same total_amount|
+| total_amount |  receives the tax number as a text and a number as well |  It is of type str as float |    It is of type float|
+| tax_amount   |  same total_amount + **Accept `None` value to get VAT auto from `total_amount`** |  same total_amount  |  same total_amount|
 
 
-<!-- | name here | feature here| -->
+> Note: The `tax_amount` is rounded to the nearest two decimal places, if it is greater than that ( if `tax_amount` == `15` its will be `15.0`)
+
+> Note: If you set `tax_amount` to `None` the `vat_rates` == `0.15` you can change it in `Fatoora` object
 
 
 <br>
@@ -113,12 +123,12 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, # or "1234567891"
     invoice_date=1635872693.3186214, # timestamp or datetime object, or string ISO 8601 Zulu format
-    total_amount=115, # or 115.0, 115.00, "115.0", "115.00"
+    total_amount=100, # or 100.0, 100.00, "100.0", "100.00"
     tax_amount=15, # or 15.0, 15.00, "15.0", "15.00"
 )
 
 print(fatoora_obj.base64)
-# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDFDIwMjEtMTEtMDJUMTc6MDQ6NTNaBAUxMTUuMAUEMTUuMA==
+# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDFDIwMjEtMTEtMDJUMTc6MDQ6NTNaBAUxMDAuMAUEMTUuMA==
 ```
 
 ### Render A QR Code Image
@@ -134,16 +144,14 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,
     invoice_date=1635872693.3186214,
-    total_amount=115,
+    total_amount=100,
     tax_amount=15,
 )
 
 fatoora_obj.qrcode("qr_code.png")
 ```
 <div align="center">
-
-![qr_code.png](https://i.suar.me/gNyBw/t)
-
+<img src="https://i.suar.me/dWOB7/t" alt="qr_code.png">
 </div>
 
 #### The content is the invoice url
@@ -155,13 +163,17 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891,
     invoice_date=1635872693.3186214,
-    total_amount=115,
+    total_amount=100,
     tax_amount=15,
     qrcode_url="https://example.com"
 )
 
 fatoora_obj.qrcode("qr_code_with_url.png")
 ```
+
+<div align="center">
+<img src="https://i.suar.me/OLJ3G/t" alt="qr_code_with_url.png">
+</div>
 
 ### Generate hash (sha256)
 
@@ -172,12 +184,12 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
     invoice_date=1635872693.3186214,
-    total_amount=115, 
+    total_amount=100, 
     tax_amount=15, 
 )
 
 print(fatoora_obj.hash)
-# 7e9b157acb01bb3cc727aecb1210c19a6a2c950589cf9bfa40f0dca57b64b100
+# 20b8ddb6ed9cb98be3d8535a1f4f28e35888842c1b0aed0e90c3e7fb51080dd9
 ```
 
 ### Read qr code
@@ -189,17 +201,17 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
     invoice_date=1635872693.3186214,
-    total_amount=115, 
+    total_amount=100, 
     tax_amount=15, 
 )
 
 fatoora_obj.qrcode("qr_code.png")
 
 print(Fatoora.read_qrcode("qr_code.png", dct=True))
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-11-02T17:04:53Z', 'total_amount': '115.0', 'tax_amount': '15.0'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-11-02T17:04:53Z', 'total_amount': '100.0', 'tax_amount': '15.0'}
 
 print(Fatoora.read_qrcode("qr_code.png", dct=False))
-# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDFDIwMjEtMTEtMDJUMTc6MDQ6NTNaBAUxMTUuMAUEMTUuMA==
+# AQZBd2l0ZWICCjEyMzQ1Njc4OTEDFDIwMjEtMTEtMDJUMTc6MDQ6NTNaBAUxMDAuMAUEMTUuMA==
 
 ```
 
@@ -211,7 +223,7 @@ fatoora_obj = Fatoora(
     seller_name="Awiteb",
     tax_number=1234567891, 
     invoice_date=1635872693.3186214,
-    total_amount=115, 
+    total_amount=100, 
     tax_amount=15, 
 )
 
@@ -225,15 +237,15 @@ print(fatoora_obj.invoice_date.timestamp())
 # 1635861893.0
 
 print(fatoora_obj.json())
-# '{"seller_name": "Awiteb", "tax_number": "1234567891", "invoice_date": "2021-11-02T17:04:53Z", "total_amount": "115.0", "tax_amount": "15.0"}'
+# '{"seller_name": "Awiteb", "tax_number": "1234567891", "invoice_date": "2021-11-02T17:04:53Z", "total_amount": "100.0", "tax_amount": "15.0"}'
 
 print(fatoora_obj.dict())
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-11-02T17:04:53Z', 'total_amount': '115.0', 'tax_amount': '15.0'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-11-02T17:04:53Z', 'total_amount': '100.0', 'tax_amount': '15.0'}
 
 # Use class to get fatoora details by base64
 
 print(Fatoora.base2dict(fatoora_obj.base64))
-# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-11-02T17:04:53Z', 'total_amount': '115.0', 'tax_amount': '15.0'}
+# {'seller_name': 'Awiteb', 'tax_number': '1234567891', 'invoice_date': '2021-11-02T17:04:53Z', 'total_amount': '100.0', 'tax_amount': '15.0'}
 
 
 ```
@@ -254,11 +266,22 @@ print(fatoora.is_valid_iso8601_zulu_format("2021-11-02T17:04:53Z"))
 Question, feature request, discuss about fatoora [here](https://github.com/TheAwiteb/fatoora/discussions)
 
 ## Issues
-You can report a bug [here](https://github.com/TheAwiteb/fatoora/issues)
+You can report a bug from [here](https://github.com/TheAwiteb/fatoora/issues/new?assignees=&labels=bug&template=bug.md)
 
 ## Security
 
 If you discover any security related issues.
+
+## Donating
+> Note: This address for BEP20 tokens
+
+|    Currency          |                Address                          |
+| ---------------------|------------------------------------------------ |
+| Binance **BNB**| ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
+| Binance USD **BUSD**  | ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
+| Tether **USDT** | ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0``` |
+| Bitcoin **BTC**  | ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
+| Bitcoin Cash **BCH**| ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
 
 ## Project use this package
 RAQ ERP - [raqss.co](https://raqss.co)
