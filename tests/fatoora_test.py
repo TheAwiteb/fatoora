@@ -54,6 +54,8 @@ def test_total_amount():
 def test_tax_amount():
     for obj in [fatoora_obj, fatoora_obj_with_url]:
         assert obj.tax_amount == float(fatoora_details.get("tax_amount"))
+        obj.tax_amount = None
+        assert obj.tax_amount == float(fatoora_details.get("tax_amount"))
 
 
 def test_dict():
