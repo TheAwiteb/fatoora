@@ -28,7 +28,6 @@ An unofficial package help developers to implement ZATCA (Fatoora) QR code easil
 from .fatoora import *
 from .version import *
 
-__all__ = "Fatoora", "version", "version_info"
 __author__ = "Awiteb <https://github.com/TheAwiteb>"
 __copyright__ = "Copyright (c) 2021 <Awiteb@hotmail.com>"
 __license__ = "MIT"
