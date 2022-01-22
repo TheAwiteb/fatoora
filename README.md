@@ -58,6 +58,7 @@
     <li><a href="#Discussions">Discussions</a></li>
     <li><a href="#Issues">Issues</a></li>
     <li><a href="#Security">Security</a></li>
+    <li><a href="#Donating">Donating</a></li>
     <li><a href="#Project-use-this-package">Project use this package</a></li>
     <li><a href="#License">License</a></li>
   </ol>
