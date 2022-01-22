@@ -45,11 +45,13 @@ class Fatoora:
         tax_number: int,
         invoice_date: float,
         total_amount: float,
-        tax_amount: float,
+        tax_amount: Optional[float] = None,
         qrcode_url: Optional[str] = None,
+        vat_rates: float = 15 / 100,  # 15% vat rate
         tags: TLV = TLV(),
     ):
         self.tags = tags
+        self.vat_rates = vat_rates
         self.seller_name = seller_name
         self.tax_number = tax_number
         self.invoice_date = invoice_date
@@ -83,9 +85,7 @@ class Fatoora:
         return dict(zip(keys, values))
 
     @classmethod
-    def read_qrcode(
-        cls, filename: str, dct: bool = False
-    ) -> Optional[Union[str, dict]]:
+    def read_qrcode(cls, filename: str, dct: bool = False) -> Union[str, dict]:
         """read content of qr code
 
         Args:
@@ -94,7 +94,7 @@ class Fatoora:
                                 False -> return base64 of content or url. Defaults to False.
 
         Returns:
-            Optional[Union[str, dict]]: content of qr code
+            Union[str, dict]: content of qr code
         """
         data = decode(Image.open(filename))[0].data.decode()
 
@@ -102,6 +102,15 @@ class Fatoora:
             return cls.base2dict(data)
         else:
             return data
+
+    @property
+    def vat_rates(self) -> float:
+        return self.__vat_rates
+
+    @vat_rates.setter
+    @validate_arguments
+    def vat_rates(self, rate: float) -> None:
+        self.__vat_rates = rate
 
     @property
     def seller_name(self) -> str:
@@ -149,7 +158,7 @@ class Fatoora:
         self.tags[0x03] = date.strftime(iso8601_zulu_format)
 
     @property
-    def total_amount(self) -> str:
+    def total_amount(self) -> float:
         return float(self.tags[4])
 
     @total_amount.setter
@@ -158,13 +167,20 @@ class Fatoora:
         self.tags[0x04] = str(new_value)
 
     @property
-    def tax_amount(self) -> str:
+    def tax_amount(self) -> float:
         return float(self.tags[5])
 
     @tax_amount.setter
     @validate_arguments
-    def tax_amount(self, new_value: float) -> None:
-        self.tags[0x05] = str(new_value)
+    def tax_amount(self, new_value: Optional[float] = None) -> None:
+        """Auto set tax if it is `None` from `total_amount`
+
+        Args:
+            new_value (float): Tax amount of `total_amount`
+        """
+        self.tags[0x05] = str(
+            round((new_value) or (self.total_amount * self.vat_rates), 2)
+        )
 
     @property
     def qrcode_url(self) -> Optional[str]:
@@ -172,7 +188,7 @@ class Fatoora:
 
     @qrcode_url.setter
     @validate_arguments
-    def qrcode_url(self, new_value: Optional[str]) -> None:
+    def qrcode_url(self, new_value: Optional[str] = None) -> None:
         if not new_value or validators.url(new_value):
             self._qrcode_url = new_value
         else:
