@@ -274,15 +274,13 @@ You can report a bug from [here](https://github.com/TheAwiteb/fatoora/issues/new
 If you discover any security related issues.
 
 ## Donating
-> Note: This address for BEP20 tokens
 
-|    Currency          |                Address                          |
-| ---------------------|------------------------------------------------ |
-| Binance **BNB**| ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
-| Binance USD **BUSD**  | ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
-| Tether **USDT** | ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0``` |
-| Bitcoin **BTC**  | ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
-| Bitcoin Cash **BCH**| ```0x4ab0974c7dfcdcdf24d8323a93b061d41e9cf3f0```|
+| Currency                  |                Address                          |
+|---------------------------|------------------------------------------------ |
+| Binance **BNB BEP20**     | ```0xD89c146B03B72191be91064D313610981dCAF6d4```|
+| USD Coin **USDC BEP20**   | ```0xD89c146B03B72191be91064D313610981dCAF6d4``` |
+| Bitcoin **BTC**           | ```bc1q0ltmqmsc4qs740ssyf9k9jq99nwxtqu8aupmdj```|
+| Bitcoin Cash **BCH**      | ```qrpm6zyte3d4z2u9r24l04m3havc2wd9vgqlz8sjgr```|
 
 ## Project use this package
 RAQ ERP - [raqss.co](https://raqss.co)
