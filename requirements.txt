@@ -1,9 +1,11 @@
-decorator==5.1.0
-Pillow==9.0.1
-pydantic==1.8.2
-pyzbar==0.1.8
+decorator==5.1.1
+numpy==1.21.5
+opencv-python==4.5.5.64
+Pillow==9.1.0
+pkg_resources==0.0.0
+pydantic==1.9.0
 qrcode==7.3.1
 six==1.16.0
-typing-extensions==3.10.0.2
+typing_extensions==4.1.1
 uttlv==0.6.0
 validators==0.18.2
