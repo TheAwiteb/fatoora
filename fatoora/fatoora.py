@@ -11,7 +11,7 @@ import qrcode
 import json
 from typing import Union, Optional
 from PIL import Image
-from pyzbar.pyzbar import decode
+import cv2
 from pydantic import validate_arguments
 import validators
 from datetime import datetime
@@ -19,6 +19,31 @@ from datetime import datetime
 __all__ = ("Fatoora", "iso8601_zulu_format", "is_valid_iso8601_zulu_format")
 
 iso8601_zulu_format = "%Y-%m-%dT%H:%M:%SZ"
+
+
+def _decode(filename: str) -> str:
+    """Returns the date of qrcode
+
+    Args:
+        filename (str): qrcode you want to get the date of it
+
+    Exception:
+        Exception: Invalid qrcode
+
+    Returns:
+        str: date of qrcodee
+    """
+    image = cv2.imread(filename)
+    # initialize the cv2 QRCode detector
+    detector = cv2.QRCodeDetector()
+    # detect and decode
+    data, vertices_array, _ = detector.detectAndDecode(image)
+    # if there is a QR code
+    # print the data
+    if vertices_array is not None:
+        return data
+    else:
+        raise Exception("Invalid qrcode")
 
 
 def is_valid_iso8601_zulu_format(string_date: str) -> bool:
@@ -96,7 +121,7 @@ class Fatoora:
         Returns:
             Union[str, dict]: content of qr code
         """
-        data = decode(Image.open(filename))[0].data.decode()
+        data = _decode(filename)
 
         if dct:
             return cls.base2dict(data)
