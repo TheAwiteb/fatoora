@@ -2,7 +2,6 @@ decorator==5.1.1
 numpy==1.21.5
 opencv-python==4.5.5.64
 Pillow==9.1.0
-pkg_resources==0.0.0
 pydantic==1.9.0
 qrcode==7.3.1
 six==1.16.0
