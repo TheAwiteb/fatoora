@@ -68,7 +68,6 @@
 ## Requirements
 
 * [Python](https://Python.org/) >= 3.8
-* [zbar-tools](http://zbar.sourceforge.net/)
 
 ## Installation
 
