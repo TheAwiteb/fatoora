@@ -21,7 +21,7 @@ __all__ = ("Fatoora", "iso8601_zulu_format", "is_valid_iso8601_zulu_format")
 iso8601_zulu_format = "%Y-%m-%dT%H:%M:%SZ"
 
 
-def _decode(filename: str) -> str:
+def _decode(filename):
     """Returns the date of qrcode
 
     Args:
@@ -46,7 +46,7 @@ def _decode(filename: str) -> str:
         raise Exception("Invalid qrcode")
 
 
-def is_valid_iso8601_zulu_format(string_date: str) -> bool:
+def is_valid_iso8601_zulu_format(string_date):
     """Returns True if the string valid ISO 8601 Zulu format
 
     Args:
@@ -66,14 +66,14 @@ def is_valid_iso8601_zulu_format(string_date: str) -> bool:
 class Fatoora:
     def __init__(
             self,
-            seller_name: str,
-            tax_number: int,
-            invoice_date: float,
-            total_amount: float,
-            tax_amount: Optional[float] = None,
-            qrcode_url: Optional[str] = None,
-            vat_rates: float = 15 / 100,  # 15% vat rate
-            tags: TLV = TLV(),
+            seller_name,
+            tax_number,
+            invoice_date,
+            total_amount,
+            tax_amount=None,
+            qrcode_url=None,
+            vat_rates=15 / 100,  # 15% vat rate
+            tags=TLV(),
     ):
         self.tags = tags
         self.vat_rates = vat_rates
@@ -85,7 +85,7 @@ class Fatoora:
         self.qrcode_url = qrcode_url
 
     @classmethod
-    def base2dict(cls, base: str) -> dict:
+    def base2dict(cls, base):
         """Convert base64 to a dictionary
 
         Args:
@@ -110,7 +110,7 @@ class Fatoora:
         return dict(zip(keys, values))
 
     @classmethod
-    def read_qrcode(cls, filename: str, dct: bool = False) -> Union[str, dict]:
+    def read_qrcode(cls, filename, dct=False):
         """read content of qr code
 
         Args:
@@ -129,39 +129,39 @@ class Fatoora:
             return data
 
     @property
-    def vat_rates(self) -> float:
+    def vat_rates(self):
         return self.__vat_rates
 
     @vat_rates.setter
     @validate_arguments
-    def vat_rates(self, rate: float) -> None:
+    def vat_rates(self, rate: float):
         self.__vat_rates = rate
 
     @property
-    def seller_name(self) -> str:
+    def seller_name(self):
         return self.tags[1]
 
     @seller_name.setter
     @validate_arguments
-    def seller_name(self, new_value: str) -> None:
+    def seller_name(self, new_value: str):
         self.tags[0x01] = new_value
 
     @property
-    def tax_number(self) -> str:
+    def tax_number(self):
         return self.tags[2]
 
     @tax_number.setter
     @validate_arguments
-    def tax_number(self, new_value: int) -> None:
+    def tax_number(self, new_value: int):
         self.tags[0x02] = str(new_value)
 
     @property
-    def invoice_date(self) -> datetime:
+    def invoice_date(self):
         return datetime.strptime(self.tags[3], iso8601_zulu_format)
 
     @invoice_date.setter
     @validate_arguments
-    def invoice_date(self, date: Union[datetime, float, str]) -> None:
+    def invoice_date(self, date: Union[datetime, float, str]):
         """The ability to enter the invoice date as timestamp or datetime object, or string ISO 8601 Zulu format
             and save it as ISO 8601 Zulu format
 
@@ -183,21 +183,21 @@ class Fatoora:
         self.tags[0x03] = date.strftime(iso8601_zulu_format)
 
     @property
-    def total_amount(self) -> float:
+    def total_amount(self):
         return float(self.tags[4])
 
     @total_amount.setter
     @validate_arguments
-    def total_amount(self, new_value: float) -> None:
+    def total_amount(self, new_value: float):
         self.tags[0x04] = str(new_value)
 
     @property
-    def tax_amount(self) -> float:
+    def tax_amount(self):
         return float(self.tags[5])
 
     @tax_amount.setter
     @validate_arguments
-    def tax_amount(self, new_value: Optional[float] = None) -> None:
+    def tax_amount(self, new_value: Optional[float] = None):
         """Auto set tax if it is `None` from `total_amount`
 
         Args:
@@ -208,19 +208,19 @@ class Fatoora:
         )
 
     @property
-    def qrcode_url(self) -> Optional[str]:
+    def qrcode_url(self):
         return self._qrcode_url
 
     @qrcode_url.setter
     @validate_arguments
-    def qrcode_url(self, new_value: Optional[str] = None) -> None:
+    def qrcode_url(self, new_value: Optional[str] = None):
         if not new_value or validators.url(new_value):
             self._qrcode_url = new_value
         else:
             raise ValueError(f"Invalid url '{new_value}'")
 
     @property
-    def base64(self) -> str:
+    def base64(self):
         """Return base64 of fatoora
 
         Returns:
@@ -231,7 +231,7 @@ class Fatoora:
         return tlv_as_base64
 
     @validate_arguments
-    def qrcode(self, filename: str) -> None:
+    def qrcode(self, filename: str):
         """Generate qr code for fatoora
 
         Args:
@@ -241,7 +241,7 @@ class Fatoora:
         qr_code.save(filename)
 
     @property
-    def hash(self) -> str:
+    def hash(self):
         """Return the hash of fatoora
 
         Returns:
@@ -249,7 +249,7 @@ class Fatoora:
         """
         return sha256(self.base64.encode()).hexdigest()
 
-    def dict(self) -> dict:
+    def dict(self):
         """Return fatoora details as dictionary
 
         Returns:
@@ -257,7 +257,7 @@ class Fatoora:
         """
         return self.__class__.base2dict(self.base64)
 
-    def json(self) -> str:
+    def json(self):
         """Return fatoora details as json
 
         Returns:
