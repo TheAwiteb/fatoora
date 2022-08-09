@@ -94,7 +94,6 @@ class Fatoora:
         Returns:
             dict: dictionary of base64 contents
         """
-        tags = TLV()
         decoded = base64.b64decode(base)
 
         tags = TLV()
