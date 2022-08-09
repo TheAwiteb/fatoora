@@ -4,17 +4,17 @@ A module to implement ZATCA e-invoice (fatoora)
 more information @ https://zatca.gov.sa/ar/E-Invoicing/SystemsDevelopers/Pages/default.aspx
 """
 
-from uttlv import TLV
 import base64
-from hashlib import sha256
-import qrcode
 import json
-from typing import Union, Optional
-from PIL import Image
-import cv2
-from pydantic import validate_arguments
-import validators
 from datetime import datetime
+from hashlib import sha256
+from typing import Union, Optional
+
+import cv2
+import qrcode
+import validators
+from pydantic import validate_arguments
+from uttlv import TLV
 
 __all__ = ("Fatoora", "iso8601_zulu_format", "is_valid_iso8601_zulu_format")
 
@@ -65,15 +65,15 @@ def is_valid_iso8601_zulu_format(string_date: str) -> bool:
 
 class Fatoora:
     def __init__(
-        self,
-        seller_name: str,
-        tax_number: int,
-        invoice_date: float,
-        total_amount: float,
-        tax_amount: Optional[float] = None,
-        qrcode_url: Optional[str] = None,
-        vat_rates: float = 15 / 100,  # 15% vat rate
-        tags: TLV = TLV(),
+            self,
+            seller_name: str,
+            tax_number: int,
+            invoice_date: float,
+            total_amount: float,
+            tax_amount: Optional[float] = None,
+            qrcode_url: Optional[str] = None,
+            vat_rates: float = 15 / 100,  # 15% vat rate
+            tags: TLV = TLV(),
     ):
         self.tags = tags
         self.vat_rates = vat_rates

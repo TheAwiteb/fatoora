@@ -1,6 +1,7 @@
-from fatoora import Fatoora
-from json import loads
 import os
+from json import loads
+
+from fatoora import Fatoora
 
 qrcode_filename = "qr_code.png"
 qrcode_filename_with_url = "qr_code_url.png"
