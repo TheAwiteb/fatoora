@@ -10,11 +10,11 @@ from hashlib import sha256
 import qrcode
 import json
 from typing import Union, Optional
-from PIL import Image
 import cv2
 from pydantic import validate_arguments
 import validators
 from datetime import datetime
+import binascii
 
 __all__ = ("Fatoora", "iso8601_zulu_format", "is_valid_iso8601_zulu_format")
 
@@ -124,7 +124,10 @@ class Fatoora:
         data = _decode(filename)
 
         if dct:
-            return cls.base2dict(data)
+            try:
+                return cls.base2dict(data)
+            except binascii.Error:
+                return data
         else:
             return data
 
