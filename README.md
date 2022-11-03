@@ -1,6 +1,7 @@
 <div align="center">
   <img src="https://zatca.gov.sa/ar/E-Invoicing/PublishingImages/header_logo.svg">
-  <h1>ZATCA (Fatoora) QR-Code Implementation</h1>
+  <h1>Archived, see <a href="https://github.com/TheAwiteb/fatoora/discussions/23">#23</a></h1>
+  <h2>ZATCA (Fatoora) QR-Code Implementation</h2>
   <p>An <strong>unofficial package</strong> help developers to implement ZATCA (Fatoora) QR code easily which required for e-invoicing</p>
   <a href="https://pypi.org/project/fatoora/">
     <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/fatoora?color=9cf">
@@ -280,26 +281,6 @@ If you discover any security related issues.
 | USD Coin **USDC BEP20**   | ```0xD89c146B03B72191be91064D313610981dCAF6d4``` |
 | Bitcoin **BTC**           | ```bc1q0ltmqmsc4qs740ssyf9k9jq99nwxtqu8aupmdj```|
 | Bitcoin Cash **BCH**      | ```qrpm6zyte3d4z2u9r24l04m3havc2wd9vgqlz8sjgr```|
-
-## Project use this package
-RAQ ERP - [raqss.co](https://raqss.co)
-
-**If you are interested in adding your project to the list, you can make a PR and add it**
-<!-- 
-
-Addition terms:
-
-   For open source projects:
-       <project name> - <developer name> - <project url>
-        example:
-            Awiteb project - [Awiteb](https://github.com/theAwiteb) - [super-project](https://github.com/theAwiteb/super-project)
-
-   For closed source projects:
-       <project name> - <website url>
-        example:
-            Awiteb project - [example.com](https://example.com)
-
- -->
 
 ## License
 
